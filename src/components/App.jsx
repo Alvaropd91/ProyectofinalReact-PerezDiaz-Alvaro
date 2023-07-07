@@ -1,0 +1,37 @@
+import React from 'react'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Navbar from './Navbar/Navbar'
+import ItemListContainer from './ItemListContainer/ItemListContainer'
+import ItemDetailContainer from './ItemDetailContainer/ItemDetailContainer'
+import Cart from './Cart/Cart'
+import Checkout from './Checkout/Checkout'
+import { useDarkModeContext } from '../Context/DarkModeContext'
+import { ToastContainer } from 'react-toastify'
+import Footer from './Footer/Footer'
+import ErrorPage from './ErrorPage/ErrorPage'
+
+
+const App = () => {
+  const {darkMode} = useDarkModeContext()
+  return (
+    <>
+      <BrowserRouter>
+        <div className={`${darkMode ? "bg-dark-blue" : "bg-white"} h-full w-full`}>
+            <Navbar/>
+            <Routes>
+              <Route path='/' element={<ItemListContainer />}/>
+              <Route path='/product/:id' element={<ItemDetailContainer/>}/>
+              <Route path='/category/:category' element={<ItemListContainer />}/>
+              <Route path='/bag' element={<Cart/>}/>
+              <Route path='/checkout' element={<Checkout/>}/>
+              <Route path="*" element={<ErrorPage/>}/>
+            </Routes>
+            <Footer/>
+            <ToastContainer/>
+        </div>
+      </BrowserRouter>
+    </>
+  )
+}
+
+export default App
